@@ -1,6 +1,11 @@
+# ============================================================
+# ReyHomes — Production Blueprint (Fast API + Budget)
+# Total ≈ $38/month (Pro workspace $25 + Starter $7 + Basic-256mb $6)
+# ============================================================
+
 databases:
   - name: reyhomes-db
-    plan: free
+    plan: basic-256mb
     databaseName: reyhomes
     user: reyhomes
 
@@ -8,87 +13,69 @@ services:
   - type: web
     name: reyhomes-backend
     runtime: python
-    plan: free
+    plan: starter
+    region: singapore
     rootDir: backend
 
-    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && (python manage.py createsuperuser --noinput || true) && python manage.py seed_if_empty"
+    buildCommand: >
+      pip install -r requirements.txt &&
+      python manage.py collectstatic --noinput &&
+      python manage.py migrate &&
+      (python manage.py createsuperuser --noinput || true) &&
+      python manage.py seed_if_empty
 
-    startCommand: "gunicorn config.wsgi:application"
+    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 2 --worker-class gthread --timeout 30 --keep-alive 5
 
     envVars:
       # =========================
       # DJANGO ADMIN
+      # (Fill these in Render Dashboard)
       # =========================
       - key: DJANGO_SUPERUSER_USERNAME
         sync: false
-
       - key: DJANGO_SUPERUSER_EMAIL
         sync: false
-
       - key: DJANGO_SUPERUSER_PASSWORD
         sync: false
 
       # =========================
-      # DJANGO SETTINGS
+      # CORE DJANGO
       # =========================
       - key: SECRET_KEY
         generateValue: true
-
       - key: DEBUG
         value: "False"
-
       - key: USE_SQLITE
         value: "False"
 
       # =========================
+      # DATABASE
+      # =========================
+      - key: DATABASE_URL
+        fromDatabase:
+          name: reyhomes-db
+          property: connectionString
+
+      # =========================
       # HOST / CORS / CSRF
+      # Update after custom domain is live
       # =========================
       - key: ALLOWED_HOSTS
-        value: "reyhomes-backend-wk9r.onrender.com"
-
+        value: "reyhomes-backend.onrender.com,api.reyhomes.com.au"
+      - key: FRONTEND_URL
+        value: "https://reyhomes.com.au"
       - key: CORS_ALLOWED_ORIGINS
-        value: "https://reyhomes-yc57.vercel.app"
-
+        value: "https://reyhomes.com.au,https://www.reyhomes.com.au"
       - key: CSRF_TRUSTED_ORIGINS
-        value: "https://reyhomes-backend-wk9r.onrender.com,https://reyhomes-yc57.vercel.app"
-
-      # =========================
-      # POSTGRES DATABASE
-      # =========================
-      - key: DB_NAME
-        fromDatabase:
-          name: reyhomes-db
-          property: database
-
-      - key: DB_USER
-        fromDatabase:
-          name: reyhomes-db
-          property: user
-
-      - key: DB_PASSWORD
-        fromDatabase:
-          name: reyhomes-db
-          property: password
-
-      - key: DB_HOST
-        fromDatabase:
-          name: reyhomes-db
-          property: host
-
-      - key: DB_PORT
-        fromDatabase:
-          name: reyhomes-db
-          property: port
+        value: "https://api.reyhomes.com.au,https://reyhomes.com.au,https://www.reyhomes.com.au,https://reyhomes-backend.onrender.com"
 
       # =========================
       # SECURITY
       # =========================
       - key: SECURE_SSL_REDIRECT
         value: "True"
-
       - key: SESSION_COOKIE_SECURE
         value: "True"
-
       - key: CSRF_COOKIE_SECURE
         value: "True"
 
@@ -97,51 +84,23 @@ services:
       # =========================
       - key: JWT_ACCESS_MINUTES
         value: "30"
-
       - key: JWT_REFRESH_DAYS
         value: "14"
 
       # =========================
-      # CLOUDINARY MEDIA
+      # MEDIA (Cloudinary)
       # =========================
       - key: USE_CLOUDINARY
         value: "True"
-
       - key: CLOUDINARY_CLOUD_NAME
         sync: false
-
       - key: CLOUDINARY_API_KEY
         sync: false
-
       - key: CLOUDINARY_API_SECRET
         sync: false
 
       # =========================
-      # S3 / R2 - OPTIONAL
+      # S3 / R2 (disabled)
       # =========================
       - key: USE_S3
         value: "False"
-
-      - key: AWS_ACCESS_KEY_ID
-        sync: false
-
-      - key: AWS_SECRET_ACCESS_KEY
-        sync: false
-
-      - key: AWS_STORAGE_BUCKET_NAME
-        sync: false
-
-      - key: AWS_S3_REGION_NAME
-        sync: false
-
-      - key: AWS_S3_ENDPOINT_URL
-        sync: false
-
-      - key: AWS_S3_CUSTOM_DOMAIN
-        sync: false
-
-      # =========================
-      # UNSPLASH - OPTIONAL
-      # =========================
-      - key: UNSPLASH_ACCESS_KEY
-        sync: false
