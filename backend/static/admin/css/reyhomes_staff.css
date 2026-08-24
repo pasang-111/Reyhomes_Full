@@ -1,0 +1,17 @@
+
+/* ReyHomes staff CMS readability */
+.form-row .help, .help {
+  font-size: 12.5px !important;
+  line-height: 1.45 !important;
+  opacity: 0.9;
+}
+fieldset.module h2, .aligned h2 {
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+.column-thumb img {
+  box-shadow: 0 1px 3px rgba(0,0,0,.12);
+}
+.submit-row input, .submit-row a.default {
+  border-radius: 8px !important;
+}

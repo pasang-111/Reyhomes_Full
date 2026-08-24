@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ReyHomes Logo — Light & Dark</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      min-height: 100vh;
+    }
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
+    .cream { background: #F5F0E6; }
+    .white { background: #FFFFFF; }
+    .black { background: #000000; }
+    .navy { background: #0A1628; }
+    img, svg { max-width: min(70vw, 420px); height: auto; }
+    .label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.45;
+    }
+    .cell { position: relative; }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell cream">
+      <img src="reyhomes-logo-dark.svg" alt="ReyHomes dark on cream" />
+      <span class="label" style="color:#0A1628">Dark on cream</span>
+    </div>
+    <div class="cell white">
+      <img src="reyhomes-logo-dark.svg" alt="ReyHomes dark on white" />
+      <span class="label" style="color:#0A1628">Dark on white</span>
+    </div>
+    <div class="cell black">
+      <img src="reyhomes-logo-light.svg" alt="ReyHomes light on black" />
+      <span class="label" style="color:#F5F0E6">Light on black</span>
+    </div>
+    <div class="cell navy">
+      <img src="reyhomes-logo-light.svg" alt="ReyHomes light on navy" />
+      <span class="label" style="color:#F5F0E6">Light on navy</span>
+    </div>
+  </div>
+</body>
+</html>

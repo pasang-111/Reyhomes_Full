@@ -1,0 +1,286 @@
+{% extends "admin/base_site.html" %}
+{% load i18n unfold %}
+
+{% block branding %}
+  {% include "unfold/helpers/site_branding.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="reyhomes-dashboard mb-10">
+
+  {# ---- Welcome ---- #}
+  <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-xs uppercase tracking-[0.35em] text-primary-600 dark:text-primary-400 font-semibold">
+        ReyHomes CMS
+      </p>
+      <h1 class="mt-1 text-2xl font-semibold text-font-important-light dark:text-font-important-dark">
+        Welcome{% if dashboard_user %}, {{ dashboard_user.get_short_name|default:dashboard_user.get_username }}{% endif %}
+      </h1>
+      <p class="mt-1 text-sm text-font-subtle-light dark:text-font-subtle-dark max-w-2xl">
+        Manage website content with frontend page references. Clients use the Pro portal at
+        <code class="text-xs">/pro/home</code> — this admin is for staff only.
+      </p>
+    </div>
+    <p class="text-xs text-font-subtle-light dark:text-font-subtle-dark">
+      {% if dashboard_now %}{{ dashboard_now|date:"l, d M Y · H:i" }}{% endif %}
+    </p>
+  </div>
+
+  {# ---- Quick actions ---- #}
+  {% if quick_actions %}
+  <div class="mb-8">
+    <h2 class="mb-3 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+      Quick actions
+    </h2>
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      {% for action in quick_actions %}
+      <a href="{{ action.link }}"
+         class="group flex flex-col rounded-default border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 p-4 shadow-sm transition hover:border-primary-500/50 hover:shadow-md">
+        <span class="material-symbols-outlined text-primary-600 dark:text-primary-400 text-2xl">{{ action.icon }}</span>
+        <span class="mt-3 text-sm font-medium text-font-important-light dark:text-font-important-dark group-hover:text-primary-600">
+          {{ action.title }}
+        </span>
+        <span class="mt-0.5 text-xs text-font-subtle-light dark:text-font-subtle-dark">{{ action.description }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if integrity_items %}
+  <div class="mb-8">
+    <h2 class="mb-3 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+      Data accuracy
+    </h2>
+    <ul class="space-y-2">
+      {% for item in integrity_items %}
+      <li class="rounded-default border px-4 py-2 text-sm
+        {% if item.level == 'ok' %}border-green-200 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-950 dark:text-green-200
+        {% elif item.level == 'alert' %}border-red-200 bg-red-50 text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200
+        {% elif item.level == 'warn' %}border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100
+        {% else %}border-base-200 bg-white dark:border-base-700 dark:bg-base-800{% endif %}">
+        {{ item.label }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {# ---- KPI cards ---- #}
+  {% if kpi_cards %}
+  <div class="mb-8">
+    <h2 class="mb-3 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+      Accounts
+    </h2>
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      {% for card in kpi_cards %}
+      <a href="{{ card.link|default:'#' }}"
+         class="rounded-default border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 p-4 shadow-sm hover:border-primary-500/40 transition">
+        <div class="flex items-start justify-between gap-2">
+          <p class="text-xs uppercase tracking-wider text-font-subtle-light dark:text-font-subtle-dark">{{ card.title }}</p>
+          {% if card.icon %}
+          <span class="material-symbols-outlined text-base text-primary-500/80">{{ card.icon }}</span>
+          {% endif %}
+        </div>
+        <p class="mt-2 text-3xl font-semibold text-font-important-light dark:text-font-important-dark">{{ card.metric }}</p>
+        <p class="mt-1 text-xs text-font-subtle-light dark:text-font-subtle-dark">{{ card.footer }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# ---- Content + enquiries ---- #}
+  <div class="mb-8 grid gap-8 lg:grid-cols-2">
+    {% if content_cards %}
+    <div>
+      <h2 class="mb-3 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+        Website content
+      </h2>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {% for card in content_cards %}
+        <div class="rounded-default border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 p-4 shadow-sm">
+          <div class="flex items-start justify-between">
+            <p class="text-xs uppercase tracking-wider text-font-subtle-light dark:text-font-subtle-dark">{{ card.title }}</p>
+            {% if card.icon %}
+            <span class="material-symbols-outlined text-base text-primary-500/80">{{ card.icon }}</span>
+            {% endif %}
+          </div>
+          <p class="mt-2 text-2xl font-semibold text-font-important-light dark:text-font-important-dark">{{ card.metric }}</p>
+          <p class="mt-1 text-xs text-font-subtle-light dark:text-font-subtle-dark">{{ card.footer }}</p>
+          <div class="mt-3 flex flex-wrap gap-2 text-xs">
+            {% if card.link %}
+            <a href="{{ card.link }}" class="text-primary-600 dark:text-primary-400 hover:underline">Manage</a>
+            {% endif %}
+            {% if card.add %}
+            <a href="{{ card.add }}" class="text-font-subtle-light dark:text-font-subtle-dark hover:underline">+ Add</a>
+            {% endif %}
+            {% if card.site %}
+            <a href="{{ card.site }}" target="_blank" rel="noopener" class="text-font-subtle-light dark:text-font-subtle-dark hover:underline">View site ↗</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if enquiry_cards %}
+    <div>
+      <h2 class="mb-3 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+        Enquiries
+      </h2>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {% for card in enquiry_cards %}
+        <a href="{{ card.link|default:'#' }}"
+           class="rounded-default border p-4 shadow-sm transition
+                  {% if card.alert and card.metric %}
+                  border-amber-400/50 bg-amber-50 dark:bg-amber-950/30
+                  {% else %}
+                  border-base-200 dark:border-base-700 bg-white dark:bg-base-800
+                  {% endif %}">
+          <div class="flex items-start justify-between">
+            <p class="text-xs uppercase tracking-wider text-font-subtle-light dark:text-font-subtle-dark">{{ card.title }}</p>
+            {% if card.icon %}
+            <span class="material-symbols-outlined text-base {% if card.alert and card.metric %}text-amber-600{% else %}text-primary-500/80{% endif %}">{{ card.icon }}</span>
+            {% endif %}
+          </div>
+          <p class="mt-2 text-2xl font-semibold text-font-important-light dark:text-font-important-dark">{{ card.metric }}</p>
+          <p class="mt-1 text-xs text-font-subtle-light dark:text-font-subtle-dark">{{ card.footer }}</p>
+        </a>
+        {% endfor %}
+      </div>
+
+      {% if recent_enquiries %}
+      <div class="mt-4 rounded-default border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 p-4 shadow-sm">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-font-subtle-light dark:text-font-subtle-dark">
+          Recent enquiries
+        </p>
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="text-font-subtle-light dark:text-font-subtle-dark uppercase tracking-wider">
+              <th class="py-2 pr-3">Name</th>
+              <th class="py-2 pr-3">Subject</th>
+              <th class="py-2 pr-3">Status</th>
+              <th class="py-2">When</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for enquiry in recent_enquiries %}
+            <tr class="border-t border-base-100 dark:border-base-700">
+              <td class="py-2 pr-3">
+                <a href="/admin/enquiries/enquiry/{{ enquiry.id }}/change/" class="text-font-important-light dark:text-font-important-dark hover:underline">
+                  {{ enquiry.first_name }} {{ enquiry.last_name }}
+                </a>
+              </td>
+              <td class="py-2 pr-3 text-font-subtle-light dark:text-font-subtle-dark">{{ enquiry.subject|default:"—" }}</td>
+              <td class="py-2 pr-3 text-font-subtle-light dark:text-font-subtle-dark">{{ enquiry.get_status_display }}</td>
+              <td class="py-2 text-font-subtle-light dark:text-font-subtle-dark">{{ enquiry.created_at|date:"d M" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+
+  {# ---- Drafts needing attention ---- #}
+  {% if draft_items %}
+  <div class="mb-8 rounded-default border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 p-4 shadow-sm">
+    <h2 class="mb-3 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+      Unpublished drafts
+    </h2>
+    <ul class="divide-y divide-base-100 dark:divide-base-700">
+      {% for item in draft_items %}
+      <li class="flex items-center justify-between gap-3 py-2 text-sm">
+        <div>
+          <span class="text-xs uppercase tracking-wider text-font-subtle-light dark:text-font-subtle-dark">{{ item.kind }}</span>
+          <a href="{{ item.url }}" class="ml-2 text-font-important-light dark:text-font-important-dark hover:underline">{{ item.title }}</a>
+        </div>
+        <span class="text-xs text-font-subtle-light dark:text-font-subtle-dark">{{ item.when|date:"d M Y" }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {# ---- Sales / Pro ---- #}
+  {% if contract_pipeline or active_builds %}
+  <div class="mb-8 grid gap-6 lg:grid-cols-2">
+    {% if contract_pipeline %}
+    <div class="rounded-default border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 p-4 shadow-sm">
+      <h2 class="mb-1 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+        Contract pipeline
+      </h2>
+      <p class="mb-3 text-xs text-font-subtle-light dark:text-font-subtle-dark">
+        {{ contracts_open }} open · <a href="/admin/pro/contract/" class="text-primary-600 hover:underline">All contracts</a>
+      </p>
+      <div class="space-y-2">
+        {% for row in contract_pipeline %}
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-font-subtle-light dark:text-font-subtle-dark">{{ row.label }}</span>
+          <span class="font-semibold text-font-important-light dark:text-font-important-dark">{{ row.value }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if active_builds %}
+    <div class="rounded-default border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 p-4 shadow-sm">
+      <h2 class="mb-3 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+        Active builds
+      </h2>
+      <ul class="space-y-2">
+        {% for build in active_builds %}
+        <li class="flex items-center justify-between gap-2 text-sm border-b border-base-100 dark:border-base-700 pb-2 last:border-0">
+          <div>
+            <a href="/admin/pro/buildproject/{{ build.pk }}/change/" class="text-font-important-light dark:text-font-important-dark hover:underline">
+              {{ build.contract.title|default:build }}
+            </a>
+            <p class="text-xs text-font-subtle-light dark:text-font-subtle-dark capitalize">
+              {{ build.current_stage|default:"planning" }} · {{ build.progress|default:0 }}%
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {# ---- Frontend map ---- #}
+  {% if frontend_map %}
+  <div class="mb-8 rounded-default border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 p-4 shadow-sm">
+    <h2 class="mb-2 text-sm font-semibold text-font-important-light dark:text-font-important-dark">
+      Frontend reference
+    </h2>
+    <p class="mb-3 text-xs text-font-subtle-light dark:text-font-subtle-dark">
+      Public routes powered by the models you edit here. Open in a new tab to verify after publishing.
+    </p>
+    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      {% for item in frontend_map %}
+      <a href="{{ item.path }}" target="_blank" rel="noopener"
+         class="rounded-default border border-base-100 dark:border-base-700 px-3 py-2 text-sm hover:border-primary-500/40 transition">
+        <span class="font-medium text-font-important-light dark:text-font-important-dark">{{ item.label }}</span>
+        <span class="block text-xs text-font-subtle-light dark:text-font-subtle-dark">{{ item.path }} · {{ item.models }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+{# Default Unfold app list + recent actions #}
+<div class="flex flex-col lg:flex-row lg:gap-8">
+  <div class="grow">
+    {% include "unfold/helpers/app_list_default.html" %}
+  </div>
+  {% include "unfold/helpers/history.html" %}
+</div>
+{% endblock %}

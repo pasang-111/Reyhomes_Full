@@ -1,0 +1,206 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | ReyHomes CMS{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'admin/css/reyhomes_staff.css' %}">
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/reyhomes.css' %}">
+<style>
+  #rh-guide-toggle {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px 11px 14px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--rh-navy, #0a1628), #16233b);
+    color: var(--rh-gold, #d8c7a4);
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(10, 22, 40, 0.35), 0 0 0 1px rgba(216, 199, 164, 0.25) inset;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #rh-guide-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(10, 22, 40, 0.45), 0 0 0 1px rgba(216, 199, 164, 0.4) inset;
+  }
+  #rh-guide-toggle .material-symbols-outlined { font-size: 19px; }
+
+  #rh-guide-panel {
+    position: fixed;
+    right: 22px;
+    bottom: 84px;
+    z-index: 1000;
+    width: 340px;
+    max-width: calc(100vw - 44px);
+    max-height: min(560px, calc(100vh - 130px));
+    display: flex;
+    flex-direction: column;
+    background: var(--rh-cream, #f5f0e6);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(10, 22, 40, 0.35), 0 0 0 1px rgba(216, 199, 164, 0.35);
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.16s ease, transform 0.16s ease;
+    overflow: hidden;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #rh-guide-panel.rh-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  #rh-guide-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--rh-navy, #0a1628);
+    color: var(--rh-gold, #d8c7a4);
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  #rh-guide-close {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    padding: 2px;
+  }
+  #rh-guide-close .material-symbols-outlined { font-size: 18px; }
+  #rh-guide-body {
+    padding: 14px 18px 18px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #2a2420;
+  }
+  #rh-guide-body h4 {
+    margin: 14px 0 6px;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--rh-navy, #0a1628);
+    opacity: 0.75;
+  }
+  #rh-guide-body h4:first-of-type { margin-top: 4px; }
+  #rh-guide-body ol, #rh-guide-body ul { margin: 0; padding-left: 1.15rem; }
+  #rh-guide-body li { margin-bottom: 3px; }
+  #rh-guide-body code {
+    background: rgba(10, 22, 40, 0.08);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .rh-guide-lead { margin: 0 0 4px; font-weight: 600; color: var(--rh-navy, #0a1628); }
+  .rh-guide-note {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(10, 22, 40, 0.18);
+    font-size: 12px;
+    opacity: 0.8;
+  }
+</style>
+{% endblock %}
+
+{% block branding %}
+<div id="site-name">
+  <a href="{% url 'admin:index' %}">ReyHomes <span>CMS</span></a>
+</div>
+{% endblock %}
+
+{% block welcome-msg %}
+  Welcome, <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById('rh-guide-toggle')) return;
+
+    var toggle = document.createElement('button');
+    toggle.id = 'rh-guide-toggle';
+    toggle.type = 'button';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', 'rh-guide-panel');
+    toggle.innerHTML =
+      '<span class="material-symbols-outlined" aria-hidden="true">help</span>' +
+      '<span>Quick guide</span>';
+
+    var panel = document.createElement('div');
+    panel.id = 'rh-guide-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'Quick guide');
+    panel.setAttribute('aria-hidden', 'true');
+    panel.innerHTML =
+      '<div id="rh-guide-header">' +
+        '<span>ReyHomes CMS \u2014 quick guide</span>' +
+        '<button id="rh-guide-close" type="button" aria-label="Close guide">' +
+          '<span class="material-symbols-outlined" aria-hidden="true">close</span>' +
+        '</button>' +
+      '</div>' +
+      '<div id="rh-guide-body">' +
+        '<p class="rh-guide-lead">Everything here can be saved as a draft first \u2014 you don\u2019t need every field filled in to hit Save.</p>' +
+        '<h4>Add a home design</h4>' +
+        '<ol>' +
+          '<li>Website content \u2192 Home designs \u2192 <strong>Add</strong></li>' +
+          '<li>Name it (e.g. \u201cThe Malaga\u201d) and pick a Category</li>' +
+          '<li>Add a price customers should see, e.g. <code>$435,000</code></li>' +
+          '<li>Set bedrooms / bathrooms / garage</li>' +
+          '<li>Upload a hero image (wide photo works best)</li>' +
+          '<li>Tick <strong>Published</strong> when it\u2019s ready for the site</li>' +
+        '</ol>' +
+        '<h4>Feature something on the homepage</h4>' +
+        '<p>Tick <strong>Featured</strong> \u2014 but it also needs <strong>Published</strong> ticked, or it won\u2019t show.</p>' +
+        '<h4>Everyday tasks</h4>' +
+        '<ul>' +
+          '<li><strong>Enquiries</strong> \u2014 open a new one, action it, set its status</li>' +
+          '<li><strong>Site settings</strong> \u2014 phone, email, logos</li>' +
+          '<li><strong>Inclusion library</strong> \u2014 reusable items you can attach to designs &amp; packages</li>' +
+        '</ul>' +
+        '<p class="rh-guide-note">Sizes are in m\u00b2 (house/land) or metres (frontage/depth) \u2014 plain numbers are fine, the website adds the units.</p>' +
+      '</div>';
+
+    document.body.appendChild(toggle);
+    document.body.appendChild(panel);
+
+    var closeBtn = panel.querySelector('#rh-guide-close');
+
+    function openPanel() {
+      panel.classList.add('rh-open');
+      panel.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    function closePanel() {
+      panel.classList.remove('rh-open');
+      panel.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    toggle.addEventListener('click', function () {
+      panel.classList.contains('rh-open') ? closePanel() : openPanel();
+    });
+    closeBtn.addEventListener('click', closePanel);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closePanel();
+    });
+    document.addEventListener('click', function (e) {
+      if (!panel.classList.contains('rh-open')) return;
+      if (panel.contains(e.target) || toggle.contains(e.target)) return;
+      closePanel();
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,587 @@
+/* ============================================================
+   ReyHomes Admin — luxury theme (django-unfold compatible)
+   Clear input borders · smooth motion · refined panels
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --rh-navy: #0a1628;
+  --rh-navy-soft: #16233b;
+  --rh-navy-mid: #1a2d4a;
+  --rh-gold: #d8c7a4;
+  --rh-gold-bright: #e9d9b6;
+  --rh-cream: #f5f0e6;
+  --rh-silver: #c5cad3;
+  --rh-border: rgba(10, 22, 40, 0.22);
+  --rh-border-strong: rgba(10, 22, 40, 0.38);
+  --rh-shadow: 0 10px 30px rgba(10, 22, 40, 0.10);
+  --rh-shadow-lg: 0 20px 50px rgba(10, 22, 40, 0.18);
+  --rh-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reyhomes-dashboard .material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.reyhomes-dashboard a:focus-visible {
+  outline: 2px solid rgba(216, 199, 164, 0.65);
+  outline-offset: 2px;
+}
+
+/* Typography */
+#site-name a,
+h1, h2, .font-semibold.text-font-important-light,
+[class*="text-2xl"], [class*="text-xl"] {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  letter-spacing: 0.01em;
+}
+
+body, .font-default {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Wordmark */
+#site-name a {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--rh-navy);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+#site-name a span {
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rh-gold);
+  background: var(--rh-navy);
+  padding: 3px 7px;
+  border-radius: 5px;
+  position: relative;
+  top: -1px;
+}
+
+/* Sidebar */
+#nav-sidebar {
+  background: linear-gradient(180deg, var(--rh-navy) 0%, var(--rh-navy-soft) 100%) !important;
+  border-right: none !important;
+}
+#nav-sidebar a {
+  color: rgba(245, 240, 230, 0.72) !important;
+  transition: color .2s var(--rh-ease), background-color .2s var(--rh-ease);
+}
+#nav-sidebar a:hover {
+  color: var(--rh-gold-bright) !important;
+  background-color: rgba(216, 199, 164, 0.08) !important;
+}
+#nav-sidebar .material-symbols-outlined {
+  color: rgba(216, 199, 164, 0.55) !important;
+  letter-spacing: 0.12em;
+}
+
+/* Cards / modules */
+.module, fieldset.module,
+[class*="rounded"][class*="border"][class*="bg-white"] {
+  box-shadow: var(--rh-shadow);
+  border-radius: 12px !important;
+  transition: box-shadow .25s var(--rh-ease), transform .25s var(--rh-ease);
+}
+fieldset.module {
+  border: 1px solid rgba(216, 199, 164, 0.35) !important;
+}
+fieldset.module h2, .aligned h2, .module h2 {
+  background: linear-gradient(90deg, var(--rh-navy), var(--rh-navy-soft)) !important;
+  color: var(--rh-gold-bright) !important;
+  border-radius: 10px 10px 0 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.03em;
+  padding: 10px 14px !important;
+}
+
+.reyhomes-dashboard [class*="rounded"][class*="shadow"],
+.reyhomes-dashboard a[class*="border"] {
+  transition: transform .2s var(--rh-ease), box-shadow .2s var(--rh-ease);
+}
+.reyhomes-dashboard a[class*="border"]:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--rh-shadow-lg);
+}
+
+/* ============================================================
+   INPUTS — clear borders (fixes “confusing” fields)
+   ============================================================ */
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+textarea,
+select,
+.vTextField,
+.vLargeTextField,
+.vURLField,
+.vIntegerField,
+.vForeignKeyRawIdAdminField,
+.related-widget-wrapper select,
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+  border-radius: 8px !important;
+  border: 1.5px solid var(--rh-border-strong) !important;
+  background-color: #fff !important;
+  color: var(--rh-navy) !important;
+  box-shadow: inset 0 1px 2px rgba(10, 22, 40, 0.04) !important;
+  transition:
+    border-color .18s var(--rh-ease),
+    box-shadow .18s var(--rh-ease),
+    background-color .18s ease !important;
+  min-height: 2.5rem;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
+textarea,
+.vLargeTextField {
+  min-height: 6rem;
+  padding-top: 0.65rem !important;
+  padding-bottom: 0.65rem !important;
+  line-height: 1.5;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(10, 22, 40, 0.38) !important;
+}
+
+input:hover,
+textarea:hover,
+select:hover,
+.vTextField:hover,
+.vLargeTextField:hover {
+  border-color: rgba(10, 22, 40, 0.5) !important;
+}
+
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible,
+.vTextField:focus,
+.vLargeTextField:focus {
+  border-color: var(--rh-navy) !important;
+  box-shadow:
+    0 0 0 3px rgba(10, 22, 40, 0.12),
+    0 0 0 1px var(--rh-gold) !important;
+  outline: none !important;
+  background-color: #fffef9 !important;
+}
+
+/* Select2 (autocomplete for inclusions) */
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+  min-height: 2.5rem !important;
+  padding: 4px 8px !important;
+}
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--open .select2-selection--single {
+  border-color: var(--rh-navy) !important;
+  box-shadow: 0 0 0 3px rgba(10, 22, 40, 0.12) !important;
+}
+.select2-dropdown {
+  border: 1.5px solid var(--rh-border-strong) !important;
+  border-radius: 10px !important;
+  box-shadow: var(--rh-shadow-lg) !important;
+  overflow: hidden;
+}
+.select2-results__option--highlighted {
+  background: var(--rh-navy) !important;
+  color: var(--rh-cream) !important;
+}
+
+/* Inline tabular rows */
+.inline-group .tabular td input,
+.inline-group .tabular td select,
+.inline-group .tabular td textarea {
+  border: 1.5px solid var(--rh-border-strong) !important;
+  width: 100%;
+}
+
+/* Labels clearer */
+.form-row > label,
+.aligned label,
+fieldset.module .form-row label {
+  color: var(--rh-navy) !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.02em;
+}
+
+.help,
+.helptext,
+p.help {
+  color: rgba(10, 22, 40, 0.5) !important;
+  font-size: 0.78rem !important;
+}
+
+/* Error state */
+.errors input,
+.errors textarea,
+.errors select,
+.errorlist + input,
+input.error {
+  border-color: #9a3342 !important;
+  box-shadow: 0 0 0 3px rgba(154, 51, 66, 0.15) !important;
+}
+
+/* Buttons */
+.submit-row input[type="submit"].default,
+input[type="submit"].default,
+.button.default,
+[class*="bg-primary-600"] {
+  background: linear-gradient(135deg, var(--rh-navy), var(--rh-navy-soft)) !important;
+  border: 1px solid rgba(216, 199, 164, 0.35) !important;
+  color: var(--rh-cream) !important;
+  border-radius: 999px !important;
+  padding: 0.55rem 1.35rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  transition: transform .2s var(--rh-ease), box-shadow .2s var(--rh-ease) !important;
+  box-shadow: 0 8px 20px rgba(10, 22, 40, 0.2) !important;
+}
+.submit-row input[type="submit"].default:hover,
+input[type="submit"].default:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(10, 22, 40, 0.28) !important;
+}
+
+.submit-row input[type="submit"],
+.button {
+  border-radius: 999px !important;
+  transition: transform .2s var(--rh-ease), background .2s ease !important;
+}
+
+/* List view polish */
+#changelist .results table {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--rh-shadow);
+}
+#result_list thead th {
+  background: var(--rh-navy) !important;
+  color: var(--rh-gold-bright) !important;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+#result_list tbody tr {
+  transition: background-color .15s ease;
+}
+#result_list tbody tr:hover {
+  background-color: rgba(216, 199, 164, 0.08) !important;
+}
+
+.column-thumb img {
+  opacity: 0.95;
+  box-shadow: 0 1px 4px rgba(10, 22, 40, 0.18);
+  border-radius: 6px;
+}
+
+/* Dashboard ambient */
+.reyhomes-dashboard {
+  position: relative;
+}
+.reyhomes-dashboard::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 40% at 0% 0%, rgba(216, 199, 164, 0.12), transparent 55%),
+    radial-gradient(ellipse 40% 35% at 100% 10%, rgba(10, 22, 40, 0.06), transparent 50%);
+  z-index: 0;
+}
+.reyhomes-dashboard > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Smooth page feel */
+main, #content {
+  scroll-behavior: smooth;
+}
+
+/* Autocomplete widget wrapper */
+.related-widget-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.related-widget-wrapper select {
+  flex: 1;
+}
+
+/* Inclusion inline clarity */
+.inline-related h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: var(--rh-navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   REYHOMES ADMIN — DARK LUXURY OVERRIDES
+   ============================================================ */
+:root {
+  --rh-admin-bg:#07111f;
+  --rh-admin-panel:#0d1a2b;
+  --rh-admin-panel-2:#101f33;
+  --rh-admin-input:#0a1628;
+  --rh-admin-border:rgba(216,199,164,.24);
+  --rh-admin-text:#f5f0e6;
+  --rh-admin-muted:rgba(245,240,230,.58);
+}
+html, body, #container, #content, main, #content-main,
+.reyhomes-dashboard {
+  background:#07111f !important;
+  color:#f5f0e6 !important;
+}
+#header, header {
+  background:linear-gradient(90deg,#07111f,#0d1a2b) !important;
+  border-bottom:1px solid var(--rh-admin-border) !important;
+}
+#site-name a, #content h1, #content h2, #content h3,
+.reyhomes-dashboard h1, .reyhomes-dashboard h2, .reyhomes-dashboard h3,
+.form-row > label, .aligned label, fieldset.module .form-row label {
+  color:#f5f0e6 !important;
+}
+.module, fieldset.module, .inline-group, #changelist-filter,
+#changelist .actions {
+  background:linear-gradient(180deg,#101f33,#0d1a2b) !important;
+  border-color:var(--rh-admin-border) !important;
+  color:#f5f0e6 !important;
+}
+input[type="text"], input[type="number"], input[type="email"],
+input[type="password"], input[type="url"], input[type="search"],
+input[type="tel"], input[type="date"], input[type="datetime-local"],
+input[type="file"], textarea, select, .vTextField, .vLargeTextField,
+.vURLField, .vIntegerField, .vForeignKeyRawIdAdminField,
+.related-widget-wrapper select,
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+  background:#07111f !important;
+  background-color:#07111f !important;
+  color:#f5f0e6 !important;
+  border:1.5px solid rgba(216,199,164,.38) !important;
+  border-radius:10px !important;
+  min-height:44px !important;
+  padding:10px 12px !important;
+}
+textarea,.vLargeTextField { min-height:120px !important; line-height:1.55 !important; }
+input::placeholder,textarea::placeholder { color:rgba(245,240,230,.34) !important; }
+input:focus,input:focus-visible,textarea:focus,textarea:focus-visible,
+select:focus,select:focus-visible,.vTextField:focus,.vLargeTextField:focus {
+  background:#0a1628 !important;
+  color:#fff !important;
+  border-color:#d8c7a4 !important;
+  box-shadow:0 0 0 3px rgba(216,199,164,.14),0 0 24px rgba(216,199,164,.08) !important;
+  outline:none !important;
+}
+.form-row > label,.aligned label,fieldset.module .form-row label {
+  font-weight:700 !important;
+  font-size:.82rem !important;
+  margin-bottom:7px !important;
+}
+.help,.helptext,p.help { color:rgba(245,240,230,.52) !important; }
+#result_list thead th {
+  background:#101f33 !important;
+  color:#e9d9b6 !important;
+}
+#result_list tbody tr {
+  background:#0b1727 !important;
+  color:#f5f0e6 !important;
+}
+#result_list tbody tr:nth-child(even) { background:#0d1a2b !important; }
+#result_list tbody tr:hover { background:#12243b !important; }
+#result_list td,#result_list th { border-color:rgba(255,255,255,.06) !important; color:#f5f0e6 !important; }
+.submit-row,.actions { background:#0b1727 !important; border-color:rgba(216,199,164,.18) !important; }
+#nav-sidebar { background:linear-gradient(180deg,#07111f,#0d1a2b) !important; }
+#nav-sidebar a { color:rgba(245,240,230,.72) !important; }
+#nav-sidebar a:hover,#nav-sidebar a:focus {
+  background:rgba(216,199,164,.08) !important;
+  color:#e9d9b6 !important;
+}
+.reyhomes-dashboard a[class*="border"] {
+  transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s ease,border-color .22s ease;
+}
+.reyhomes-dashboard a[class*="border"]:hover {
+  transform:translateY(-3px);
+  border-color:rgba(216,199,164,.48) !important;
+  box-shadow:0 18px 45px rgba(0,0,0,.28) !important;
+}
+.reyhomes-dashboard { position:relative; }
+.reyhomes-dashboard::after {
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  width:280px;height:280px;right:-80px;top:120px;border-radius:999px;
+  background:radial-gradient(circle,rgba(216,199,164,.08),transparent 68%);
+  filter:blur(8px);
+  animation:rhDashboardFloat 9s ease-in-out infinite;
+}
+@keyframes rhDashboardFloat {
+  0%,100% { transform:translate3d(0,0,0) scale(1); opacity:.65; }
+  50% { transform:translate3d(-24px,18px,0) scale(1.08); opacity:1; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .reyhomes-dashboard::after { animation:none !important; }
+}
+
+/* ============================================================
+   UNFOLD 0.104+ — explicit field visibility (dark theme)
+   Targets Tailwind utility classes Unfold emits on widgets.
+   Resting-state borders must be visible before focus.
+   ============================================================ */
+
+/* Unfold text / number / email / url / date widgets */
+input[type="text"].border-base-200,
+input[type="number"].border-base-200,
+input[type="email"].border-base-200,
+input[type="password"].border-base-200,
+input[type="url"].border-base-200,
+input[type="search"].border-base-200,
+input[type="tel"].border-base-200,
+input[type="date"].border-base-200,
+input[type="datetime-local"].border-base-200,
+input[type="file"].border-base-200,
+textarea.border-base-200,
+select.border-base-200,
+[class*="border-base-"][class*="rounded"]input,
+[class*="border-base-"][class*="rounded"]textarea,
+[class*="border-base-"][class*="rounded"]select,
+.border-base-200,
+.border-base-300,
+.dark .border-base-700,
+.dark input,
+.dark textarea,
+.dark select {
+  border-width: 1.5px !important;
+  border-style: solid !important;
+  border-color: rgba(216, 199, 164, 0.45) !important;
+  background-color: #07111f !important;
+  color: #f5f0e6 !important;
+  min-height: 2.75rem !important;
+  border-radius: 0.625rem !important;
+}
+
+.dark input:hover,
+.dark textarea:hover,
+.dark select:hover {
+  border-color: rgba(216, 199, 164, 0.65) !important;
+}
+
+.dark input:focus,
+.dark input:focus-visible,
+.dark textarea:focus,
+.dark textarea:focus-visible,
+.dark select:focus,
+.dark select:focus-visible {
+  border-color: #d8c7a4 !important;
+  box-shadow:
+    0 0 0 3px rgba(216, 199, 164, 0.18),
+    0 0 20px rgba(216, 199, 164, 0.08) !important;
+  outline: none !important;
+  background-color: #0a1628 !important;
+}
+
+/* Select2 autocomplete (inclusion M2M) */
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple,
+.dark .select2-container--default .select2-selection--single,
+.dark .select2-container--default .select2-selection--multiple {
+  border: 1.5px solid rgba(216, 199, 164, 0.45) !important;
+  background-color: #07111f !important;
+  color: #f5f0e6 !important;
+  min-height: 2.75rem !important;
+  border-radius: 0.625rem !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered,
+.dark .select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #f5f0e6 !important;
+  line-height: 2.5rem !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--open .select2-selection--single {
+  border-color: #d8c7a4 !important;
+  box-shadow: 0 0 0 3px rgba(216, 199, 164, 0.18) !important;
+}
+
+.select2-dropdown {
+  background: #0d1a2b !important;
+  border: 1.5px solid rgba(216, 199, 164, 0.35) !important;
+  color: #f5f0e6 !important;
+}
+
+.select2-results__option {
+  color: #f5f0e6 !important;
+}
+
+.select2-results__option--highlighted {
+  background: #0a1628 !important;
+  color: #e9d9b6 !important;
+}
+
+/* Inline formsets (PackageInclusion / DesignInclusion rows) */
+.inline-group .tabular td input,
+.inline-group .tabular td select,
+.inline-group .tabular td textarea,
+.inline-related input,
+.inline-related select,
+.inline-related textarea,
+.dark .inline-group input,
+.dark .inline-group select,
+.dark .inline-group textarea {
+  border: 1.5px solid rgba(216, 199, 164, 0.4) !important;
+  background-color: #07111f !important;
+  color: #f5f0e6 !important;
+  min-height: 2.5rem !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Checkbox / radio remain visible */
+.dark input[type="checkbox"],
+.dark input[type="radio"] {
+  min-height: 1.1rem !important;
+  width: 1.1rem !important;
+  border: 1.5px solid rgba(216, 199, 164, 0.55) !important;
+  accent-color: #d8c7a4;
+}
+
+/* Deduped dashboard card hover (single rule) */
+.reyhomes-dashboard a[class*="border"] {
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+.reyhomes-dashboard a[class*="border"]:hover {
+  transform: translateY(-3px);
+  border-color: rgba(216, 199, 164, 0.48) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28) !important;
+}

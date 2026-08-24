@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="480" viewBox="0 0 900 480">
+  <rect width="900" height="480" fill="#0A1628"/>
+  <text x="40" y="50" fill="#D8C7A4" font-family="system-ui,sans-serif" font-size="12" letter-spacing="3">STEP 4</text>
+  <text x="40" y="90" fill="#F5F0E6" font-family="system-ui,sans-serif" font-size="26" font-weight="600">Wire CORS · frontend ↔ API</text>
+  <text x="40" y="125" fill="#aab" font-family="system-ui,sans-serif" font-size="14">On Render → reyhomes-backend → Environment → save → Manual Deploy</text>
+  <rect x="40" y="160" width="820" height="120" rx="12" fill="#13243B" stroke="#D8C7A4"/>
+  <text x="60" y="200" fill="#D8C7A4" font-family="system-ui,sans-serif" font-size="13">CORS_ALLOWED_ORIGINS</text>
+  <text x="60" y="230" fill="#fff" font-family="ui-monospace,monospace" font-size="15">https://your-app.vercel.app</text>
+  <text x="60" y="255" fill="#778" font-family="system-ui,sans-serif" font-size="12">Exact URL from Vercel (https, no trailing slash)</text>
+  <rect x="40" y="300" width="820" height="120" rx="12" fill="#13243B" stroke="#333"/>
+  <text x="60" y="340" fill="#D8C7A4" font-family="system-ui,sans-serif" font-size="13">CSRF_TRUSTED_ORIGINS</text>
+  <text x="60" y="375" fill="#fff" font-family="ui-monospace,monospace" font-size="14">https://YOUR-BACKEND.onrender.com,https://your-app.vercel.app</text>
+  <text x="60" y="400" fill="#778" font-family="system-ui,sans-serif" font-size="12">Comma-separated · needed for admin + credentialed requests</text>
+</svg>

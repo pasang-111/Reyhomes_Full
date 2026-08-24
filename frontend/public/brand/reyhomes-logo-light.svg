@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 180" fill="none" role="img" aria-label="ReyHomes">
+  <title>ReyHomes</title>
+  <path fill="#F5F0E6" fill-rule="evenodd" d="
+    M98 10c36-4 72 12 90 44l16 30c12 22 8 50-12 70l-36 40c-20 22-54 28-80 14
+    C50 194 32 162 34 128L38 46C40 24 62 14 98 10z
+    M72 46v112h26V108l36 50h32L120 98c28-6 42-26 42-48 0-30-24-42-60-42H72z
+    M98 58h12c18 0 26 8 26 20s-8 20-26 20H98V58z"/>
+  <g fill="#F5F0E6" font-family="Georgia,'Times New Roman',Times,serif">
+    <text x="230" y="86" font-size="58" font-weight="600" letter-spacing="0.06em">REY</text>
+    <text x="230" y="140" font-size="44" font-weight="500" letter-spacing="0.3em">HOMES</text>
+  </g>
+</svg>

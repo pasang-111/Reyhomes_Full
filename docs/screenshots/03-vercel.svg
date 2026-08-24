@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540">
+  <rect width="900" height="540" fill="#000"/>
+  <rect x="0" y="0" width="900" height="52" fill="#111"/>
+  <text x="24" y="32" fill="#fff" font-family="system-ui,sans-serif" font-size="16" font-weight="600">▲ Vercel</text>
+  <text x="100" y="32" fill="#888" font-family="system-ui,sans-serif" font-size="14">Add New Project</text>
+  <text x="40" y="95" fill="#D8C7A4" font-family="system-ui,sans-serif" font-size="12" letter-spacing="3">STEP 3</text>
+  <text x="40" y="135" fill="#fff" font-family="system-ui,sans-serif" font-size="26" font-weight="600">Import GitHub · root = frontend</text>
+  <rect x="40" y="170" width="820" height="300" rx="12" fill="#111" stroke="#333"/>
+  <text x="70" y="220" fill="#888" font-family="system-ui,sans-serif" font-size="13">FRAMEWORK PRESET</text>
+  <text x="70" y="245" fill="#fff" font-family="system-ui,sans-serif" font-size="16">Next.js</text>
+  <text x="70" y="295" fill="#888" font-family="system-ui,sans-serif" font-size="13">ROOT DIRECTORY</text>
+  <rect x="70" y="310" width="200" height="36" rx="6" fill="#000" stroke="#D8C7A4"/>
+  <text x="85" y="333" fill="#D8C7A4" font-family="ui-monospace,monospace" font-size="14">frontend</text>
+  <text x="70" y="390" fill="#888" font-family="system-ui,sans-serif" font-size="13">ENVIRONMENT VARIABLE</text>
+  <text x="70" y="420" fill="#fff" font-family="ui-monospace,monospace" font-size="13">NEXT_PUBLIC_API_URL = https://YOUR-BACKEND.onrender.com</text>
+  <text x="70" y="445" fill="#666" font-family="system-ui,sans-serif" font-size="12">No trailing slash</text>
+  <rect x="620" y="300" width="200" height="48" rx="8" fill="#fff"/>
+  <text x="720" y="330" text-anchor="middle" fill="#000" font-family="system-ui,sans-serif" font-size="15" font-weight="600">Deploy</text>
+</svg>

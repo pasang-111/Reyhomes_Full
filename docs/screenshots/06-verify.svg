@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="480" viewBox="0 0 900 480">
+  <rect width="900" height="480" fill="#0A1628"/>
+  <text x="40" y="55" fill="#D8C7A4" font-family="system-ui,sans-serif" font-size="12" letter-spacing="3">VERIFY</text>
+  <text x="40" y="95" fill="#F5F0E6" font-family="system-ui,sans-serif" font-size="26" font-weight="600">Smoke-test checklist</text>
+  <g font-family="system-ui,sans-serif" font-size="15">
+    <rect x="40" y="130" width="820" height="48" rx="8" fill="#13243B"/>
+    <text x="60" y="160" fill="#3fb950">✓</text>
+    <text x="90" y="160" fill="#F5F0E6">https://API.onrender.com/admin/ — Unfold dashboard login</text>
+    
+    <rect x="40" y="190" width="820" height="48" rx="8" fill="#13243B"/>
+    <text x="60" y="220" fill="#3fb950">✓</text>
+    <text x="90" y="220" fill="#F5F0E6">https://app.vercel.app/home-designs — cards load (wake API if slow)</text>
+    
+    <rect x="40" y="250" width="820" height="48" rx="8" fill="#13243B"/>
+    <text x="60" y="280" fill="#3fb950">✓</text>
+    <text x="90" y="280" fill="#F5F0E6">Admin → publish design with image → image visible on Vercel</text>
+    
+    <rect x="40" y="310" width="820" height="48" rx="8" fill="#13243B"/>
+    <text x="60" y="340" fill="#3fb950">✓</text>
+    <text x="90" y="340" fill="#F5F0E6">Optional: enable is_reypro on user → /pro/home opens</text>
+    
+    <rect x="40" y="370" width="820" height="48" rx="8" fill="#13243B"/>
+    <text x="60" y="400" fill="#D8C7A4">!</text>
+    <text x="90" y="400" fill="#aaa">First request after sleep: wait 30–60s, then refresh</text>
+  </g>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A1628"/>
+      <stop offset="100%" stop-color="#13243B"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="420" fill="url(#bg)"/>
+  <text x="48" y="56" fill="#D8C7A4" font-family="system-ui,sans-serif" font-size="14" letter-spacing="4">REYHOMES · FREE TEST DEPLOY</text>
+  <text x="48" y="100" fill="#F5F0E6" font-family="system-ui,sans-serif" font-size="32" font-weight="600">5 steps · $0 stack</text>
+  <!-- boxes -->
+  <g font-family="system-ui,sans-serif">
+    <rect x="40" y="150" width="150" height="100" rx="14" fill="#1a2d4a" stroke="#D8C7A4" stroke-width="1.5"/>
+    <text x="115" y="195" text-anchor="middle" fill="#D8C7A4" font-size="20" font-weight="700">1</text>
+    <text x="115" y="222" text-anchor="middle" fill="#F5F0E6" font-size="14">GitHub</text>
+    
+    <rect x="210" y="150" width="150" height="100" rx="14" fill="#1a2d4a" stroke="#D8C7A4" stroke-width="1.5"/>
+    <text x="285" y="195" text-anchor="middle" fill="#D8C7A4" font-size="20" font-weight="700">2</text>
+    <text x="285" y="222" text-anchor="middle" fill="#F5F0E6" font-size="14">Render API+DB</text>
+    
+    <rect x="380" y="150" width="150" height="100" rx="14" fill="#1a2d4a" stroke="#D8C7A4" stroke-width="1.5"/>
+    <text x="455" y="195" text-anchor="middle" fill="#D8C7A4" font-size="20" font-weight="700">3</text>
+    <text x="455" y="222" text-anchor="middle" fill="#F5F0E6" font-size="14">Vercel site</text>
+    
+    <rect x="550" y="150" width="150" height="100" rx="14" fill="#1a2d4a" stroke="#D8C7A4" stroke-width="1.5"/>
+    <text x="625" y="195" text-anchor="middle" fill="#D8C7A4" font-size="20" font-weight="700">4</text>
+    <text x="625" y="222" text-anchor="middle" fill="#F5F0E6" font-size="14">CORS wire-up</text>
+    
+    <rect x="720" y="150" width="180" height="100" rx="14" fill="#1a2d4a" stroke="#8C1D2C" stroke-width="2"/>
+    <text x="810" y="195" text-anchor="middle" fill="#D8C7A4" font-size="20" font-weight="700">5</text>
+    <text x="810" y="222" text-anchor="middle" fill="#F5F0E6" font-size="14">R2 media (rec.)</text>
+  </g>
+  <!-- arrows -->
+  <g stroke="#D8C7A4" stroke-width="2" fill="none">
+    <path d="M190 200 H210"/>
+    <path d="M360 200 H380"/>
+    <path d="M530 200 H550"/>
+    <path d="M700 200 H720"/>
+  </g>
+  <text x="48" y="320" fill="#F5F0E6" font-family="system-ui,sans-serif" font-size="15" opacity="0.75">Staff CMS → https://api.onrender.com/admin/    ·    Public + Pro → https://app.vercel.app</text>
+  <text x="48" y="360" fill="#D8C7A4" font-family="system-ui,sans-serif" font-size="13">Follow docs/screenshots/01–05 and FREE_DEPLOY.md</text>
+</svg>

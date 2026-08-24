@@ -1,0 +1,15 @@
+ReyHomes final patch
+
+- Authentication X buttons: login, register, forgot-password; account home exit.
+- Homepage hero reserves more space for fixed Navbar and bottom LuxurySearch.
+- Google Workspace/Gmail SMTP settings added.
+- Enquiry backend sends visitor thank-you email + internal lead notification.
+- Internal email Reply-To is the customer's email.
+- SMTP failure never loses the saved enquiry and is logged.
+- Django Unfold forced to dark theme.
+- Admin fields, labels, inputs, tables and filters redesigned for clear dark-mode entry.
+- Dashboard cards receive subtle luxury hover/ambient motion.
+- Existing SiteChrome/Navbar/Footer stacking fix retained.
+
+Before production:
+Set EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, DEFAULT_FROM_EMAIL and CONTACT_NOTIFICATION_EMAIL on the Django/Render service. Use a Google App Password; never commit the real password.
