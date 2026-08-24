@@ -1,8 +1,8 @@
-# render.yaml — Fixed region
+# render.yaml — Clean version (same region)
 databases:
   - name: reyhomes-db
     plan: basic-256mb
-    region: singapore          # ← ADD THIS (must match web service)
+    region: singapore
     databaseName: reyhomes
     user: reyhomes
 
@@ -11,7 +11,7 @@ services:
     name: reyhomes-backend
     runtime: python
     plan: starter
-    region: singapore          # same region
+    region: singapore
     rootDir: backend
 
     disk:
@@ -29,7 +29,6 @@ services:
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 2 --worker-class gthread --timeout 30 --keep-alive 5
 
     envVars:
-      # Admin
       - key: DJANGO_SUPERUSER_USERNAME
         sync: false
       - key: DJANGO_SUPERUSER_EMAIL
@@ -37,7 +36,6 @@ services:
       - key: DJANGO_SUPERUSER_PASSWORD
         sync: false
 
-      # Core
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
@@ -45,7 +43,6 @@ services:
       - key: USE_SQLITE
         value: "False"
 
-      # Database
       - key: DB_NAME
         fromDatabase:
           name: reyhomes-db
@@ -67,7 +64,6 @@ services:
           name: reyhomes-db
           property: port
 
-      # Host / CORS / CSRF
       - key: ALLOWED_HOSTS
         value: "reyhomes-backend.onrender.com,api.reyhomes.com.au"
       - key: FRONTEND_URL
@@ -77,7 +73,6 @@ services:
       - key: CSRF_TRUSTED_ORIGINS
         value: "https://api.reyhomes.com.au,https://reyhomes.com.au,https://www.reyhomes.com.au,https://reyhomes-backend.onrender.com"
 
-      # Security
       - key: SECURE_SSL_REDIRECT
         value: "True"
       - key: SESSION_COOKIE_SECURE
@@ -85,13 +80,11 @@ services:
       - key: CSRF_COOKIE_SECURE
         value: "True"
 
-      # JWT
       - key: JWT_ACCESS_MINUTES
         value: "30"
       - key: JWT_REFRESH_DAYS
         value: "14"
 
-      # Media — Persistent Disk
       - key: USE_CLOUDINARY
         value: "False"
       - key: USE_S3
