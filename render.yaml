@@ -1,4 +1,4 @@
-# render.yaml — ReyHomes (Persistent Disk + matching regions)
+# render.yaml — ReyHomes (Persistent Disk)
 databases:
   - name: reyhomes-db
     plan: basic-256mb
@@ -23,8 +23,7 @@ services:
       pip install -r requirements.txt &&
       python manage.py collectstatic --noinput &&
       python manage.py migrate &&
-      (python manage.py createsuperuser --noinput || true) &&
-      python manage.py seed_if_empty
+      (python manage.py createsuperuser --noinput || true)
 
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 2 --worker-class gthread --timeout 30 --keep-alive 5
 
