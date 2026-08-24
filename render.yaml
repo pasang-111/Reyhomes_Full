@@ -1,7 +1,8 @@
-# render.yaml — ReyHomes with Persistent Disk
+# render.yaml — Fixed region
 databases:
   - name: reyhomes-db
     plan: basic-256mb
+    region: singapore          # ← ADD THIS (must match web service)
     databaseName: reyhomes
     user: reyhomes
 
@@ -10,14 +11,13 @@ services:
     name: reyhomes-backend
     runtime: python
     plan: starter
-    region: singapore
+    region: singapore          # same region
     rootDir: backend
 
-    # Persistent Disk for media
     disk:
       name: reyhomes-media
       mountPath: /var/data
-      sizeGB: 5                    # 5 GB is a good starting point
+      sizeGB: 5
 
     buildCommand: >
       pip install -r requirements.txt &&
@@ -29,9 +29,7 @@ services:
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 2 --worker-class gthread --timeout 30 --keep-alive 5
 
     envVars:
-      # =========================
-      # DJANGO ADMIN
-      # =========================
+      # Admin
       - key: DJANGO_SUPERUSER_USERNAME
         sync: false
       - key: DJANGO_SUPERUSER_EMAIL
@@ -39,9 +37,7 @@ services:
       - key: DJANGO_SUPERUSER_PASSWORD
         sync: false
 
-      # =========================
-      # CORE
-      # =========================
+      # Core
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
@@ -49,9 +45,7 @@ services:
       - key: USE_SQLITE
         value: "False"
 
-      # =========================
-      # DATABASE
-      # =========================
+      # Database
       - key: DB_NAME
         fromDatabase:
           name: reyhomes-db
@@ -73,9 +67,7 @@ services:
           name: reyhomes-db
           property: port
 
-      # =========================
-      # HOST / CORS / CSRF
-      # =========================
+      # Host / CORS / CSRF
       - key: ALLOWED_HOSTS
         value: "reyhomes-backend.onrender.com,api.reyhomes.com.au"
       - key: FRONTEND_URL
@@ -85,9 +77,7 @@ services:
       - key: CSRF_TRUSTED_ORIGINS
         value: "https://api.reyhomes.com.au,https://reyhomes.com.au,https://www.reyhomes.com.au,https://reyhomes-backend.onrender.com"
 
-      # =========================
-      # SECURITY
-      # =========================
+      # Security
       - key: SECURE_SSL_REDIRECT
         value: "True"
       - key: SESSION_COOKIE_SECURE
@@ -95,17 +85,13 @@ services:
       - key: CSRF_COOKIE_SECURE
         value: "True"
 
-      # =========================
       # JWT
-      # =========================
       - key: JWT_ACCESS_MINUTES
         value: "30"
       - key: JWT_REFRESH_DAYS
         value: "14"
 
-      # =========================
-      # MEDIA — Persistent Disk
-      # =========================
+      # Media — Persistent Disk
       - key: USE_CLOUDINARY
         value: "False"
       - key: USE_S3
