@@ -1,4 +1,4 @@
-# render.yaml — ReyHomes (matches your actual settings.py)
+# render.yaml — ReyHomes with Persistent Disk
 databases:
   - name: reyhomes-db
     plan: basic-256mb
@@ -12,6 +12,12 @@ services:
     plan: starter
     region: singapore
     rootDir: backend
+
+    # Persistent Disk for media
+    disk:
+      name: reyhomes-media
+      mountPath: /var/data
+      sizeGB: 5                    # 5 GB is a good starting point
 
     buildCommand: >
       pip install -r requirements.txt &&
@@ -44,7 +50,7 @@ services:
         value: "False"
 
       # =========================
-      # DATABASE (matches your settings.py)
+      # DATABASE
       # =========================
       - key: DB_NAME
         fromDatabase:
@@ -98,16 +104,11 @@ services:
         value: "14"
 
       # =========================
-      # CLOUDINARY
+      # MEDIA — Persistent Disk
       # =========================
       - key: USE_CLOUDINARY
-        value: "True"
-      - key: CLOUDINARY_CLOUD_NAME
-        sync: false
-      - key: CLOUDINARY_API_KEY
-        sync: false
-      - key: CLOUDINARY_API_SECRET
-        sync: false
-
+        value: "False"
       - key: USE_S3
         value: "False"
+      - key: MEDIA_ROOT
+        value: "/var/data/media"
