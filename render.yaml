@@ -1,4 +1,4 @@
-# render.yaml — Clean version (same region)
+# render.yaml — ReyHomes (Persistent Disk + matching regions)
 databases:
   - name: reyhomes-db
     plan: basic-256mb
