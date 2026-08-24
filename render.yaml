@@ -1,8 +1,4 @@
-# ============================================================
-# ReyHomes — Production Blueprint (Fast API + Budget)
-# Total ≈ $38/month (Pro workspace $25 + Starter $7 + Basic-256mb $6)
-# ============================================================
-
+# render.yaml — ReyHomes (matches your actual settings.py)
 databases:
   - name: reyhomes-db
     plan: basic-256mb
@@ -29,7 +25,6 @@ services:
     envVars:
       # =========================
       # DJANGO ADMIN
-      # (Fill these in Render Dashboard)
       # =========================
       - key: DJANGO_SUPERUSER_USERNAME
         sync: false
@@ -39,7 +34,7 @@ services:
         sync: false
 
       # =========================
-      # CORE DJANGO
+      # CORE
       # =========================
       - key: SECRET_KEY
         generateValue: true
@@ -49,16 +44,31 @@ services:
         value: "False"
 
       # =========================
-      # DATABASE
+      # DATABASE (matches your settings.py)
       # =========================
-      - key: DATABASE_URL
+      - key: DB_NAME
         fromDatabase:
           name: reyhomes-db
-          property: connectionString
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: reyhomes-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: reyhomes-db
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: reyhomes-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: reyhomes-db
+          property: port
 
       # =========================
       # HOST / CORS / CSRF
-      # Update after custom domain is live
       # =========================
       - key: ALLOWED_HOSTS
         value: "reyhomes-backend.onrender.com,api.reyhomes.com.au"
@@ -88,7 +98,7 @@ services:
         value: "14"
 
       # =========================
-      # MEDIA (Cloudinary)
+      # CLOUDINARY
       # =========================
       - key: USE_CLOUDINARY
         value: "True"
@@ -99,8 +109,5 @@ services:
       - key: CLOUDINARY_API_SECRET
         sync: false
 
-      # =========================
-      # S3 / R2 (disabled)
-      # =========================
       - key: USE_S3
         value: "False"
